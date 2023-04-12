@@ -20,6 +20,8 @@ public class JobData {
 
     private static ArrayList<HashMap<String, String>> allJobs;
 
+
+
     /**
      * Fetch list of all values from loaded data,
      * without duplicates, for a given column.
@@ -79,7 +81,7 @@ public class JobData {
 
             String aValue = row.get(column);
 
-            if (aValue.contains(value)) {
+            if (aValue.toLowerCase().contains(value.toLowerCase())) {
                 jobs.add(row);
             }
         }
@@ -99,8 +101,23 @@ public class JobData {
         loadData();
 
         // TODO - implement this method
-        return null;
+
+        ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
+
+        for (HashMap<String, String> row : allJobs){
+
+            for (String column : row.keySet()){
+                String aValue = row.get(column);
+
+                if (aValue.toLowerCase().contains(value.toLowerCase())){
+                    jobs.add(row);
+                }
+            }
+        }
+
+        return jobs;
     }
+
 
     /**
      * Read in data from a CSV file and store it in a list
@@ -142,5 +159,6 @@ public class JobData {
             e.printStackTrace();
         }
     }
+
 
 }
